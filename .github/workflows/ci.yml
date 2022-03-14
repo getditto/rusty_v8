@@ -41,25 +41,25 @@ jobs:
             variant: release
             cargo: cargo
 
-          - os: windows-2019
-            target: x86_64-pc-windows-msvc
-            variant: release # Note: we do not support windows debug builds.
-            cargo: cargo
+          # - os: windows-2019
+          #   target: x86_64-pc-windows-msvc
+          #   variant: release # Note: we do not support windows debug builds.
+          #   cargo: cargo
 
-          - os: ${{ github.repository == 'denoland/rusty_v8' && 'ubuntu-20.04-xl' || 'ubuntu-20.04' }}
-            target: aarch64-unknown-linux-gnu
-            variant: debug
-            cargo: cargo
+          # - os: ${{ github.repository == 'denoland/rusty_v8' && 'ubuntu-20.04-xl' || 'ubuntu-20.04' }}
+          #   target: aarch64-unknown-linux-gnu
+          #   variant: debug
+          #   cargo: cargo
 
-          - os: ${{ github.repository == 'denoland/rusty_v8' && 'ubuntu-20.04-xl' || 'ubuntu-20.04' }}
-            target: aarch64-unknown-linux-gnu
-            variant: release
-            cargo: cargo
+          # - os: ${{ github.repository == 'denoland/rusty_v8' && 'ubuntu-20.04-xl' || 'ubuntu-20.04' }}
+          #   target: aarch64-unknown-linux-gnu
+          #   variant: release
+          #   cargo: cargo
 
-          - os: ${{ github.repository == 'denoland/rusty_v8' && 'ubuntu-20.04-xl' || 'ubuntu-20.04' }}
-            target: aarch64-linux-android
-            variant: release # Note: v8 debug builds on QEMU is buggy.
-            cargo: cross
+          # - os: ${{ github.repository == 'denoland/rusty_v8' && 'ubuntu-20.04-xl' || 'ubuntu-20.04' }}
+          #   target: aarch64-linux-android
+          #   variant: release # Note: v8 debug builds on QEMU is buggy.
+          #   cargo: cross
 
     env:
       V8_FROM_SOURCE: true
@@ -182,7 +182,7 @@ jobs:
         env:
           SCCACHE_IDLE_TIMEOUT: 0
         run:
-          ${{ matrix.config.cargo }} test -vv --all-targets --locked ${{ env.CARGO_VARIANT_FLAG }}
+          ${{ matrix.config.cargo }} test --no-default-features -vv --all-targets --locked ${{ env.CARGO_VARIANT_FLAG }}
           --target ${{ matrix.config.target }}
 
       - name: Clippy
